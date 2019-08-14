@@ -12,12 +12,21 @@ type AppConfig struct {
 }
 
 func LoadConfig() *AppConfig {
-	cfg, err := ini.Load("config.ini")
-	PanicIf(err)
-	appConfig := &AppConfig{
-		File: cfg,
+	var appConfig *AppConfig
+	_, err := os.Stat("config.ini")
+	if err != nil {
+		// Config doesn't exist, fail silently
+		appConfig = &AppConfig{}
+		appConfig.Port = appConfig.getPort()
+	} else {
+		cfg, err := ini.Load("config.ini")
+		PanicIf(err)
+		appConfig = &AppConfig{
+			File: cfg,
+		}
+		appConfig.Port = appConfig.getPort()
+
 	}
-	appConfig.Port = appConfig.getPort()
 	return appConfig
 }
 
@@ -27,11 +36,13 @@ func getSettings(cf *AppConfig, section string) *ini.Section {
 }
 
 func (cf *AppConfig) getPort() string {
-	s := getSettings(cf, "app")
+	if cf.File != nil {
+		s := getSettings(cf, "app")
 
-	if s != nil && s.HasKey("port") {
-		port, _ := s.GetKey("port")
-		return port.String()
+		if s != nil && s.HasKey("port") {
+			port, _ := s.GetKey("port")
+			return port.String()
+		}
 	}
 
 	// Convention for gin, if no port defined in config, use PORT

@@ -31,5 +31,5 @@ func (app *App) GetJokeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, `{"result": %s, "error": %s}`, joke.Value["joke"], errors)
+	fmt.Fprintf(w, `{"result": "%s", "error": %s}`, joke.Value["joke"], errors)
 }

@@ -23,7 +23,7 @@ This is a simple RESTful API/web service that integrates with several third part
 * docker-compose
 
 ```bash
-  docker-compose -f production.docker-compose.yaml up -d
+  docker-compose -f production.docker-compose.yaml run build && docker-compose -f production.docker-compose.yaml up -d
 ```
 * kubernetes
 
