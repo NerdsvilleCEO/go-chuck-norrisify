@@ -10,13 +10,14 @@ This is a simple RESTful API/web service that integrates with several third part
   docker-compose up -d
 ```
 
-*kubernetes
+* kubernetes
 
-- Edit the values.yaml to have appropriate configuration for your deployment
+  - Edit the values.yaml to have appropriate configuration for your deployment
+  - Install
 
-```bash
-  helm install -n develop -f k8s/develop/development.values.yaml --name go-chuck-norrisify helm-charts/web-app-k8s
-```
+  ```bash
+    helm install -n develop -f k8s/develop/development.values.yaml --name go-chuck-norrisify helm-charts/web-app-k8s
+  ```
 
 ### Production
 * docker-compose
@@ -26,7 +27,8 @@ This is a simple RESTful API/web service that integrates with several third part
 ```
 * kubernetes
 
-- Edit the values.yaml to have appropriate configuration for your deployment
+  - Edit the values.yaml to have appropriate configuration for your deployment
+  - Install
 
 ```bash
   helm install -n production -f k8s/production/production.values.yaml
