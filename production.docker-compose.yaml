@@ -1,0 +1,15 @@
+version: '3.3'
+services:
+  build:
+    build: .
+    command: go build -a -installsuffix cgo -o main .
+    volumes:
+      - .:/go/src/github.com/NerdsvilleCEO/go-chuck-norrisify
+  app:
+    build: ./app
+    environment:
+      PORT: 3000
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
