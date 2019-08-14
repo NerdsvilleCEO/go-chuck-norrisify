@@ -31,7 +31,7 @@ This is a simple RESTful API/web service that integrates with several third part
   - Install
 
 ```bash
-  helm install -n production -f k8s/production/production.values.yaml
+  helm install -n production -f k8s/production/production.values.yaml --name go-chuck-norrisify helm-charts/web-app-k8s
 ```
 
 ## Structure
