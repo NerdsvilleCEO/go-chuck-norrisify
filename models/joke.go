@@ -4,11 +4,10 @@ import (
   "net/http"
   "io/ioutil"
   "encoding/json"
-  "strings"
+	"fmt"
 )
 
 type Joke struct {
-  Template string
   Value map[string]interface{} `json: value`
   name Name
 }
@@ -18,8 +17,10 @@ type Joke struct {
 // Finally, it returns the value and an error if any
 // TODO: Implement some sort of caching so we aren't hitting this
 //   service everytime ;-)
-func GetJoke() (*Joke, error) {
-  resp, err := http.Get("http://api.icndb.com/jokes/random?firstName=John&lastName=Doe&limitTo=[nerdy]")
+func GetJoke(name *Name) (*Joke, error) {
+	url := fmt.Sprintf("http://api.icndb.com/jokes/random?firstName=%s&lastName=%s&limitTo=[nerdy]", name.First, name.Last)
+
+  resp, err := http.Get(url)
   if err != nil {
 		return nil, err
   }
@@ -30,7 +31,6 @@ func GetJoke() (*Joke, error) {
   if err != nil {
 		return nil, err
   }
-  joke.Template = strings.Replace(joke.Value["joke"].(string), "John Doe", "%s", 1)
 
   return joke, nil
 }

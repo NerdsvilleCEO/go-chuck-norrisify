@@ -15,12 +15,12 @@ import (
 func (app *App) GetJokeHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var errors []error
-	joke, err := models.GetJoke()
+	name, err := models.GetName()
 	if err != nil {
 		errors = append(errors, err)
 	}
 
-	name, err := models.GetName()
+	joke, err := models.GetJoke(name)
 	if err != nil {
 		errors = append(errors, err)
 	}
@@ -31,6 +31,5 @@ func (app *App) GetJokeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	jokeStr := fmt.Sprintf(joke.Template, name)
-	fmt.Fprintf(w, `{"result": %s, "error": %s}`, jokeStr, errors)
+	fmt.Fprintf(w, `{"result": %s, "error": %s}`, joke.Value["joke"], errors)
 }
