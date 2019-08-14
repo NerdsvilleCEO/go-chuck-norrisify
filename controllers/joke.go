@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"fmt"
-	"net/http"
 	"github.com/NerdsvilleCEO/go-chuck-norrisify/models"
+	"net/http"
 )
 
 // GET /

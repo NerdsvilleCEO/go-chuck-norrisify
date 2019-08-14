@@ -1,15 +1,15 @@
 package models
 
 import (
-  "net/http"
-  "io/ioutil"
-  "encoding/json"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"net/http"
 )
 
 type Joke struct {
-  Value map[string]interface{} `json: value`
-  name Name
+	Value map[string]interface{} `json: value`
+	name  Name
 }
 
 // GetJoke is a method which reaches out to the joke service
@@ -20,17 +20,17 @@ type Joke struct {
 func GetJoke(name *Name) (*Joke, error) {
 	url := fmt.Sprintf("http://api.icndb.com/jokes/random?firstName=%s&lastName=%s&limitTo=[nerdy]", name.First, name.Last)
 
-  resp, err := http.Get(url)
-  if err != nil {
+	resp, err := http.Get(url)
+	if err != nil {
 		return nil, err
-  }
-  defer resp.Body.Close()
-  body, err := ioutil.ReadAll(resp.Body)
-  var joke *Joke
-  err = json.Unmarshal([]byte(body), &joke)
-  if err != nil {
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	var joke *Joke
+	err = json.Unmarshal([]byte(body), &joke)
+	if err != nil {
 		return nil, err
-  }
+	}
 
-  return joke, nil
+	return joke, nil
 }

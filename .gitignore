@@ -2,3 +2,4 @@ config.ini
 gin-bin
 main
 *.swp
+*key.json
